@@ -22,7 +22,7 @@ import SelectIcon from "@/icons/select-icon.svg";
 import CrossIcon from "@/icons/cross-icon3.svg";
 import ArrowDownIcon from "@/icons/arrow-down-icon3.svg";
 import { useModal } from "@/context/ModalContext";
-import TableView from "@/components/unassigned/TableView";
+import TableView from "@/components/dashboard/unassigned/TableView";
 
 // ⬇️ MediaCard updated with selectable checkbox
 function MediaCard({
@@ -147,7 +147,7 @@ function MediaCard({
 
 
 export default function UnassignedPage() {
-  const [view, setView] = useState("gallery");
+  const [view, setView] = useState("table");
   const [isSelectMode, setIsSelectMode] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);

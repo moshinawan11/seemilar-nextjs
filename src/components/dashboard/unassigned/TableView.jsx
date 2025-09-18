@@ -52,7 +52,6 @@ const mockData = [
 
 export default function TableView() {
   const [selectedItems, setSelectedItems] = useState([]);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   const { openModal } = useModal();
 
   const toggleSelect = (id) => {
@@ -61,87 +60,23 @@ export default function TableView() {
     );
   };
 
-  const clearSelection = () => {
-    setSelectedItems([]);
-  };
+  const clearSelection = () => setSelectedItems([]);
 
   return (
     <div className="relative w-full bg-white">
-      {/* Table Actions */}
-      <div className="flex justify-end items-center mb-3">
-        {selectedItems.length > 0 ? (
-          <div className="relative">
-            <button
-              onClick={() => setDropdownOpen(!dropdownOpen)}
-              className="flex items-center gap-2 px-4 py-2 text-white bg-[#0156D0] rounded-lg"
-            >
-              <div
-                className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-colors ${
-                  selectedItems.length > 0
-                    ? "bg-white border-white"
-                    : "bg-transparent border-white"
-                }`}
-              >
-                {selectedItems.length > 0 && (
-                  <div className="w-2.5 h-0.5 bg-[#0156D0] rounded-sm" />
-                )}
-              </div>
-              <span className="text-sm font-medium border-r border-[#FFFFFF80] pr-2">
-                {selectedItems.length} items are selected
-              </span>
-              <ArrowDownIconSm className="w-3 h-3" />
-            </button>
-
-            {dropdownOpen && (
-              <div className="absolute right-0 mt-2 w-40 bg-[#0156D0] rounded-lg shadow-lg p-2 text-white z-50">
-                <button
-                  className="w-full text-left px-2 py-2 rounded hover:bg-[#F8F8F8] hover:text-[#4F4B5C]"
-                  onClick={() =>
-                    openModal("moveItems", { count: selectedItems.length })
-                  }
-                >
-                  Move to
-                </button>
-                <button
-                  className="w-full text-left px-2 py-2 mt-1 rounded hover:bg-[#F8F8F8] hover:text-[#4F4B5C]"
-                  onClick={() =>
-                    openModal("duplicateItems", { count: selectedItems.length })
-                  }
-                >
-                  Duplicate to
-                </button>
-                <button
-                  className="w-full text-left px-2 py-2 mt-1 rounded hover:bg-[#F8F8F8] hover:text-[#4F4B5C]"
-                  onClick={() =>
-                    openModal("deleteItems", { count: selectedItems.length })
-                  }
-                >
-                  Delete
-                </button>
-              </div>
-            )}
-          </div>
-        ) : (
-          <button className="flex items-center gap-2 px-4 py-2 text-white bg-[#0156D0] rounded-lg">
-            <span className="text-sm font-medium border-r border-[#FFFFFF80] pr-2">
-              Select Items
-            </span>
-            <ArrowDownIconSm className="w-3 h-3" />
-          </button>
-        )}
-      </div>
-
-      {/* Table */}
-      <div className="overflow-x-auto border border-[#D9D8DC] rounded-lg">
-        <table className="w-full text-sm text-left text-gray-700">
-          <thead className="bg-[#F3F1FD] text-[#4F4B5C] text-xs">
-            <tr>
-              <th className="p-3 w-10">
+      <div className="overflow-x-auto border border-[#C5C6D0] rounded-lg">
+        <table className="w-full text-left text-[#1B1B1F]">
+          {/* ===== Table Header ===== */}
+          <thead className="bg-[#FEFBFF] text-[16px] font-semibold tracking-[0.5px] border-b-2 border-[#C5C6D0]">
+            <tr className="h-[72px]">
+              {/* Checkbox header */}
+              <th className="w-12 px-3">
                 <input
                   type="checkbox"
-                  className="w-4 h-4 border-gray-300 rounded"
+                  className="w-6 h-6 border-2 border-[#1B1B1F] rounded-md opacity-40 accent-[#8B75FF]"
                 />
               </th>
+
               {[
                 "Input Type",
                 "Data Type",
@@ -155,64 +90,101 @@ export default function TableView() {
               ].map((head) => (
                 <th
                   key={head}
-                  className="px-4 py-3 font-medium whitespace-nowrap"
+                  className="px-3 font-semibold whitespace-nowrap border-r border-[#C5C6D0] last:border-r-0"
                 >
                   <div className="flex items-center gap-1">
                     <span>{head}</span>
-                    <ChevronDown size={14} className="text-gray-400" />
+                    <ChevronDown size={18} className="text-gray-500" />
                   </div>
                 </th>
               ))}
             </tr>
           </thead>
+
+          {/* ===== Table Body ===== */}
           <tbody>
             {mockData.map((row) => {
               const isSelected = selectedItems.includes(row.id);
               return (
                 <tr
                   key={row.id}
-                  className={`border-b hover:bg-gray-50 ${
-                    isSelected ? "bg-[#F3F6FF]" : "bg-white"
+                  className={`h-[64px] border-b border-[#E1E0E5] hover:bg-[#F9F9FB] ${
+                    isSelected ? "bg-[#F3F1FD]" : "bg-white"
                   }`}
                 >
-                  <td className="p-3">
+                  {/* Checkbox */}
+                  <td className="px-3">
                     <input
                       type="checkbox"
                       checked={isSelected}
                       onChange={() => toggleSelect(row.id)}
-                      className="w-4 h-4 rounded border-gray-300"
+                      className="w-6 h-6 border-2 border-[#1B1B1F] rounded-md accent-[#8B75FF]"
                     />
                   </td>
-                  <td className="px-4 py-3 flex items-center gap-2">
-                    <LinkIcon className="w-4 h-4" />
-                    {row.inputType}
+
+                  {/* Input Type */}
+                  <td className="px-3 border-r border-[#C5C6D0]">
+                    <div className="flex items-center gap-2">
+                      <LinkIcon className="w-6 h-6 text-[#1B1B1F]" />
+                      <span className="text-[16px] leading-6 tracking-[0.5px] truncate">
+                        {row.inputType}
+                      </span>
+                    </div>
                   </td>
-                  <td className="px-4 py-3 flex items-center gap-2">
-                    <ImagesIcon className="w-4 h-4" />
-                    {row.dataType}
+
+                  {/* Data Type */}
+                  <td className="px-3 border-r border-[#C5C6D0] hidden sm:table-cell">
+                    <div className="flex items-center gap-2">
+                      <ImagesIcon className="w-6 h-6 text-[#1B1B1F]" />
+                      <span className="truncate">{row.dataType}</span>
+                    </div>
                   </td>
-                  <td className="px-4 py-3 text-[#0156D0] underline cursor-pointer">
+
+                  {/* Title */}
+                  <td className="px-3 border-r border-[#C5C6D0] text-[#0156D0] underline cursor-pointer">
                     {row.title}
                   </td>
-                  <td className="px-4 py-3">{row.description}</td>
-                  <td className="px-4 py-3">{row.labels}</td>
-                  <td className="px-4 py-3">{row.memo}</td>
-                  <td className="px-4 py-3">{row.createdAt}</td>
-                  <td className="px-4 py-3">
+
+                  {/* Description */}
+                  <td className="px-3 border-r border-[#C5C6D0] hidden md:table-cell max-w-xs truncate">
+                    {row.description}
+                  </td>
+
+                  {/* Labels */}
+                  <td className="px-3 border-r border-[#C5C6D0] hidden lg:table-cell">
+                    {row.labels}
+                  </td>
+
+                  {/* Memo */}
+                  <td className="px-3 border-r border-[#C5C6D0] hidden lg:table-cell">
+                    {row.memo}
+                  </td>
+
+                  {/* Created At */}
+                  <td className="px-3 border-r border-[#C5C6D0] whitespace-nowrap">
+                    {row.createdAt}
+                  </td>
+
+                  {/* Image */}
+                  <td className="px-3 border-r border-[#C5C6D0] hidden sm:table-cell">
                     <div className="flex -space-x-2">
                       {row.images.map((img, idx) => (
                         <Image
                           key={idx}
                           src={img}
                           alt="preview"
-                          width={32}
-                          height={32}
-                          className="rounded object-cover border"
+                          width={40}
+                          height={40}
+                          className="rounded-md object-cover border border-[#E1E0E5]"
                         />
                       ))}
                     </div>
                   </td>
-                  <td className="px-4 py-3">{row.editedAt}</td>
+
+                  {/* Edited At */}
+                  <td className="px-3 whitespace-nowrap hidden md:table-cell">
+                    {row.editedAt}
+                  </td>
                 </tr>
               );
             })}
@@ -220,16 +192,15 @@ export default function TableView() {
         </table>
       </div>
 
-      {/* Floating close button */}
-      {selectedItems.length > 0 && (
+      {/* ===== Floating Buttons ===== */}
+      {selectedItems.length > 0 ? (
         <button
           onClick={clearSelection}
           className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-white flex items-center justify-center shadow-lg z-50 border-4 border-[#0156D0]"
         >
           <CrossIcon className="w-6 h-6 text-[#0156D0]" />
         </button>
-      )}
-      {selectedItems.length === 0 && (
+      ) : (
         <button
           onClick={() => {}}
           className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-[#0156D0] flex items-center justify-center shadow-lg z-50"
