@@ -1,0 +1,13 @@
+{
+  "welcome": "시밀러에 오신걸 환영합니다.",
+  "newHere": "새롭게 오셨나요?",
+  "createAccount": "계정 만들기",
+  "email": "이메일 주소",
+  "password": "비밀번호",
+  "stayLoggedIn": "로그인 상태 유지",
+  "login": "로그인",
+  "forgotPassword": "비밀번호를 잊으셨나요?",
+  "loginWithGoogle": "구글로 로그인하기",
+  "terms": "로그인함으로써 서비스 이용약관 및 개인정보 보호정책에 동의합니다. 또한 서비스 및 제안과 관련된 이메일과 통신문을 수신하는 데 동의합니다.",
+  "copyright": "© Seemilar AI"
+}

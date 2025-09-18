@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { --bg: 255 255 255; --fg: 17 24 39; }
+.dark { --bg: 17 24 39; --fg: 229 231 235; }
+
+html, body { height: 100%; }
+body { color: rgb(var(--fg)); background: rgb(var(--bg)); }
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

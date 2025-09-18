@@ -1,0 +1,13 @@
+{
+  "welcome": "Welcome to Seemilar.",
+  "newHere": "New to here?",
+  "createAccount": "Create account",
+  "email": "Your email address",
+  "password": "Your password",
+  "stayLoggedIn": "Stay logged in",
+  "login": "Log in",
+  "forgotPassword": "Forgot your Password?",
+  "loginWithGoogle": "Login with Google",
+  "terms": "By logging in, I agree to the Terms of service and Privacy policy.",
+  "copyright": "© Seemilar AI"
+}
