@@ -22,6 +22,7 @@ import SelectIcon from "@/icons/select-icon.svg";
 import CrossIcon from "@/icons/cross-icon3.svg";
 import ArrowDownIcon from "@/icons/arrow-down-icon3.svg";
 import { useModal } from "@/context/ModalContext";
+import TableView from "@/components/unassigned/TableView";
 
 // ⬇️ MediaCard updated with selectable checkbox
 function MediaCard({
@@ -115,30 +116,30 @@ function MediaCard({
       )}
 
       {/* Footer */}
-      { !isSelectMode && (
-              <div className="absolute bottom-3 left-3 right-3 flex justify-between items-end text-white z-20">
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-1 text-xs sm:text-sm">
-            <EyeIcon className="w-4 h-4 sm:w-5 sm:h-5" />
-            <span className="text-sm sm:text-lg">21.5K</span>
+      {!isSelectMode && (
+        <div className="absolute bottom-3 left-3 right-3 flex justify-between items-end text-white z-20">
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center gap-1 text-xs sm:text-sm">
+              <EyeIcon className="w-4 h-4 sm:w-5 sm:h-5" />
+              <span className="text-sm sm:text-lg">21.5K</span>
+            </div>
+            <div className="flex items-center gap-1 text-xs sm:text-sm">
+              <HeartIcon className="w-4 h-4 sm:w-5 sm:h-5" />
+              <span className="text-sm sm:text-lg">8K</span>
+            </div>
           </div>
-          <div className="flex items-center gap-1 text-xs sm:text-sm">
-            <HeartIcon className="w-4 h-4 sm:w-5 sm:h-5" />
-            <span className="text-sm sm:text-lg">8K</span>
+          <div className="flex flex-col gap-2 items-end">
+            <HamburgerIcon />
+            <div className="flex items-center gap-1 text-xs sm:text-sm">
+              <span className="text-sm sm:text-lg">4</span>
+              <LikeIcon className="w-4 h-4 sm:w-5 sm:h-5" />
+            </div>
+            <div className="flex items-center gap-1 text-xs sm:text-sm">
+              <span className="text-sm sm:text-lg">2</span>
+              <CommentIcon className="w-4 h-4 sm:w-5 sm:h-5" />
+            </div>
           </div>
         </div>
-        <div className="flex flex-col gap-2 items-end">
-          <HamburgerIcon />
-          <div className="flex items-center gap-1 text-xs sm:text-sm">
-            <span className="text-sm sm:text-lg">4</span>
-            <LikeIcon className="w-4 h-4 sm:w-5 sm:h-5" />
-          </div>
-          <div className="flex items-center gap-1 text-xs sm:text-sm">
-            <span className="text-sm sm:text-lg">2</span>
-            <CommentIcon className="w-4 h-4 sm:w-5 sm:h-5" />
-          </div>
-        </div>
-      </div>
       )}
     </div>
   );
@@ -300,33 +301,35 @@ export default function UnassignedPage() {
 
       {/* Content */}
       <div className="flex-1 w-full p-3 sm:p-6 mt-2 bg-[#F8F8F8] border border-[#D9D8DC] rounded-xl relative">
-        {/* Overlay in select mode */}
-        <div className="relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-          {[
-            { id: 1, type: "text", title: "Title of Contents ...", description: "#vegan ...", topLeftIcons: ["link"] },
-            { id: 2, type: "text", title: "This is Title ...", description: "Description text: ...", topLeftIcons: ["cross"] },
-            { id: 3, type: "image", title: "Samsung0928...", image: "/images/post-img1.jpg", topLeftIcons: ["upload"], topRightIcons: ["images"] },
-            { id: 4, type: "image", title: "Title of Contents ...", image: "/images/post-img2.jpg", topLeftIcons: ["facebook"], topRightIcons: ["video"] },
-            { id: 5, type: "image", title: "Title of Contents ...", image: "/images/post-img3.jpg", topLeftIcons: ["instagram"] },
-            { id: 6, type: "image", title: "Title of Contents ...", image: "/images/post-img4.jpg", topLeftIcons: ["link", "facebook"] },
-            { id: 7, type: "image", title: "Title of Contents ...", image: "/images/post-img2.jpg", topLeftIcons: ["link", "instagram"], topRightIcons: ["images"] },
-            { id: 8, type: "image", title: "Title of Contents ...", image: "/images/post-img3.jpg", topLeftIcons: ["link", "x"], topRightIcons: ["video"] },
-            { id: 9, type: "text", title: "This is Title ...", description: "#vegan ...", topLeftIcons: ["link"], topRightIcons: ["images"] },
-            { id: 10, type: "image", title: "Title of Contents ...", image: "/images/post-img1.jpg", topLeftIcons: ["upload", "instagram"] },
-            { id: 11, type: "text", title: "This is Title ...", description: "Description text: ...", topLeftIcons: ["cross", "link"] },
-            { id: 12, type: "image", title: "Title of Contents ...", image: "/images/post-img4.jpg", topLeftIcons: ["x"], topRightIcons: ["images"] },
-          ].map((card) => (
-            <MediaCard
-              key={card.id}
-              {...card}
-              id={card.id}
-              isSelectMode={isSelectMode}
-              isSelected={selectedItems.includes(card.id)}
-              toggleSelect={toggleSelect}
-            />
-          ))}
-        </div>
-
+        {view === "gallery" && (
+          <div className="relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+            {[
+              { id: 1, type: "text", title: "Title of Contents ...", description: "#vegan ...", topLeftIcons: ["link"] },
+              { id: 2, type: "text", title: "This is Title ...", description: "Description text: ...", topLeftIcons: ["cross"] },
+              { id: 3, type: "image", title: "Samsung0928...", image: "/images/post-img1.jpg", topLeftIcons: ["upload"], topRightIcons: ["images"] },
+              { id: 4, type: "image", title: "Title of Contents ...", image: "/images/post-img2.jpg", topLeftIcons: ["facebook"], topRightIcons: ["video"] },
+              { id: 5, type: "image", title: "Title of Contents ...", image: "/images/post-img3.jpg", topLeftIcons: ["instagram"] },
+              { id: 6, type: "image", title: "Title of Contents ...", image: "/images/post-img4.jpg", topLeftIcons: ["link", "facebook"] },
+              { id: 7, type: "image", title: "Title of Contents ...", image: "/images/post-img2.jpg", topLeftIcons: ["link", "instagram"], topRightIcons: ["images"] },
+              { id: 8, type: "image", title: "Title of Contents ...", image: "/images/post-img3.jpg", topLeftIcons: ["link", "x"], topRightIcons: ["video"] },
+              { id: 9, type: "text", title: "This is Title ...", description: "#vegan ...", topLeftIcons: ["link"], topRightIcons: ["images"] },
+              { id: 10, type: "image", title: "Title of Contents ...", image: "/images/post-img1.jpg", topLeftIcons: ["upload", "instagram"] },
+              { id: 11, type: "text", title: "This is Title ...", description: "Description text: ...", topLeftIcons: ["cross", "link"] },
+              { id: 12, type: "image", title: "Title of Contents ...", image: "/images/post-img4.jpg", topLeftIcons: ["x"], topRightIcons: ["images"] },
+            ].map((card) => (
+              <MediaCard
+                key={card.id}
+                {...card}
+                id={card.id}
+                isSelectMode={isSelectMode}
+                isSelected={selectedItems.includes(card.id)}
+                toggleSelect={toggleSelect}
+              />
+            ))}
+          </div>)}
+        {view === "table" && <TableView />}{view === "feed" && (
+          <div className="p-6 text-gray-500 italic">Feed view coming soon...</div>
+        )}
       </div>
 
       {/* Floating Close Button */}
